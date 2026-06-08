@@ -29,7 +29,7 @@ header h1{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;
 .cl{font-size:.7rem;font-weight:500;color:var(--dim);line-height:1.3}
 .ct.active .cl{color:var(--text)}
 /* MAIN */
-.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.main{flex:1;overflow-y:hidden;display:flex;flex-direction:column}
 .main::-webkit-scrollbar{width:5px}.main::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 /* CHAPTER HEADER */
 .ch{padding:18px 28px 14px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--surface) 0%,transparent 100%);flex-shrink:0}
@@ -102,7 +102,7 @@ header h1{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;
 .hbox .hl{font-size:.68rem;font-weight:700;color:var(--cc,var(--acc));margin-bottom:5px;letter-spacing:.08em;text-transform:uppercase}
 .hbox p{font-size:.79rem;color:var(--text);margin-bottom:0;line-height:1.7}
 /* WELCOME */
-.wsc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;text-align:center}
+.wsc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:36px 28px;text-align:center;overflow-y:auto}
 .wic{font-size:2.8rem;margin-bottom:12px}
 .wsc h2{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:8px;background:linear-gradient(135deg,#b0a0ff,#5fb8d3);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .wsc p{color:var(--dim);max-width:420px;line-height:1.7;font-size:.82rem;margin-bottom:16px}
@@ -134,26 +134,91 @@ header h1{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;
 /* NO CONTENT */
 .nc{background:var(--s2);border:1px solid var(--border);border-radius:7px;padding:18px;color:var(--dim);font-size:.8rem;line-height:1.7}
 .nc strong{color:var(--text);display:block;margin-bottom:6px;font-size:.85rem}
+
+
+/* ── TIER SYSTEM ── */
+.tier-badge{display:inline-flex;align-items:center;gap:4px;font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.07em;border:1px solid}
+.tier-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sp .tier-dot{display:inline-block;width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-left:2px}
+.tier-legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:7px 11px;border-bottom:1px solid var(--border);background:var(--bg);font-size:.6rem}
+.tier-legend-item{display:flex;align-items:center;gap:5px;color:var(--dim)}
+.sb-filter-row{display:flex;gap:5px;padding:4px 11px 6px;flex-wrap:wrap}
+.tier-filter-btn{font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:all .15s;text-transform:uppercase;letter-spacing:.06em;background:transparent}
+.tier-filter-btn.active-filter{color:#0d0d12!important}
+
+/* ── PROGRESS & NAVIGATION UPGRADES ── */
+.sb{position:relative;transition:width .25s,min-width .25s}
+.sb.sb-collapsed{width:0!important;min-width:0!important;overflow:hidden}
+.sb-toggle-btn{position:absolute;top:58px;left:240px;z-index:201;background:var(--surface);border:1px solid var(--border);border-left:none;border-radius:0 5px 5px 0;width:18px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--dim);transition:left .25s;user-select:none}
+.sb-toggle-btn.closed{left:0}
+.sb-sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:8px 11px 3px;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim)}
+.sb-sec-hdr button{background:none;border:none;color:var(--dim);cursor:pointer;font-size:.8rem;padding:0 2px;line-height:1;flex-shrink:0}
+.sb-ch-group{overflow:hidden;transition:max-height .3s ease}
+.ct{position:relative}
+.ct-prog{height:2px;background:var(--border);border-radius:2px;margin-top:2px}
+.ct-prog-fill{height:100%;border-radius:2px;transition:width .4s ease;background:var(--cc,var(--acc))}
+.sec-done-dot{width:7px;height:7px;border-radius:50%;background:var(--cc,var(--acc));flex-shrink:0;opacity:.85}
+.sec-flag-btn{background:none;border:none;cursor:pointer;font-size:.85rem;padding:0 2px;opacity:.45;transition:opacity .15s;line-height:1;flex-shrink:0}
+.sec-flag-btn:hover{opacity:1}
+.sec-flag-btn.flagged{opacity:1}
+.sp{display:flex;align-items:center;gap:5px;position:relative}
+.sp-label{flex:1;text-align:left}
+.sp-done{width:6px;height:6px;border-radius:50%;background:var(--cc,var(--acc));flex-shrink:0;opacity:0;transition:opacity .2s}
+.sp.done .sp-done{opacity:.9}
+.sp.flagged .sp-label::after{content:' 🚩';font-size:.75em}
+.resume-btn{background:rgba(124,106,247,.12);border:1px solid rgba(124,106,247,.3);color:#b0a0ff;font-size:.72rem;font-weight:600;padding:6px 16px;border-radius:6px;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:all .15s;margin-top:10px;display:inline-block}
+.resume-btn:hover{background:rgba(124,106,247,.22)}
+.overall-prog-wrap{width:100%;max-width:680px;margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:14px 18px}
+.op-title{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);margin-bottom:7px}
+.op-bar{height:8px;background:var(--s2);border-radius:4px;overflow:hidden;margin-bottom:5px}
+.op-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#7c6af7,#5fb8d3);transition:width .8s ease}
+.op-labels{display:flex;justify-content:space-between;font-size:.62rem;color:var(--dim);font-family:'IBM Plex Mono',monospace}
+.ch-stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.ch-stat{font-size:.65rem;color:var(--dim)}
+.ch-stat strong{color:var(--text);font-weight:600}
+.sec-search-wrap{padding:8px 11px 4px}
+.sec-search{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 9px;border-radius:5px;font-size:.68rem;font-family:'IBM Plex Sans',sans-serif}
+.sec-search:focus{outline:none;border-color:var(--acc)}
+.sec-search::placeholder{color:var(--dim)}
+.flagged-panel{background:rgba(230,57,70,.06);border:1px solid rgba(230,57,70,.18);border-radius:6px;padding:8px 11px;margin-bottom:10px}
+.flagged-title{font-size:.6rem;font-weight:700;color:#f08090;letter-spacing:.09em;text-transform:uppercase;margin-bottom:5px}
+.flagged-item{font-size:.7rem;color:#c0c0d8;padding:2px 0;cursor:pointer;display:flex;align-items:center;gap:6px}
+.flagged-item:hover{color:var(--text)}
+.save-indicator{font-size:.6rem;color:var(--dim);display:flex;align-items:center;gap:5px;margin-left:auto;white-space:nowrap}
+.save-dot-hd{width:6px;height:6px;border-radius:50%;background:var(--acc);transition:background .3s}
+.kbd-hint{font-size:.58rem;color:var(--dim);margin-top:4px;opacity:.7}
 </style>
 </head>
 <body>
+<div class="sb-toggle-btn" id="sbToggleBtn" onclick="toggleSB()" title="Toggle sidebar">‹</div>
 <header>
-  <div>
-    <h1>ASBOG Study Guide</h1>
-
-  </div>
+  <div><h1>ASBOG Study Guide</h1></div>
   <button class="hd-home" onclick="goHome()">⌂ Home</button>
   <div class="hd-badge">All 12 Chapters · Fully Expanded</div>
-  <div class="hd-sub" style="display:block;margin-left:8px;white-space:nowrap">© 2026 Ian Daniel Aguero</div>
+  <div class="hd-sub" style="margin-left:8px;white-space:nowrap">© 2026 Ian Daniel Aguero</div>
+  <div class="save-indicator"><span class="save-dot-hd" id="saveDotHd"></span><span id="saveLblHd">Saved</span></div>
 </header>
 <div class="app">
   <nav class="sb" id="sb"></nav>
   <div class="main" id="main">
-    <div class="wsc" id="wsc">
+    <div class="wsc" id="wsc" style="display:flex">
       <div class="wic">🪨</div>
       <h2>ASBOG Complete Study Guide</h2>
-      <p>Every chapter, every subsection — with illustrations, formulas, tables, and YouTube video links. No internet required.</p>
+      <p>Every chapter, every subsection — illustrations, formulas, tables, and YouTube links. Track what you've studied, flag sections to revisit, and resume where you left off. No internet required.</p>
       <button class="sbtn" onclick="selCh(0)">Begin Studying →</button>
+      <button class="resume-btn" id="resumeBtn" onclick="resumeStudy()" style="display:none">↩ Resume: loading…</button>
+      <div class="kbd-hint">Tip: use ← → arrow keys to navigate sections, ↑ ↓ to change chapters</div>
+      <div class="overall-prog-wrap" id="overallProgWrap">
+        <div class="op-title">Overall study progress</div>
+        <div class="op-bar"><div class="op-bar-fill" id="opBarFill" style="width:0%"></div></div>
+        <div class="op-labels"><span id="opDone">0 of 0 sections read</span><span id="opPct">0%</span></div>
+        <div class="ch-stats" id="chStats"></div>
+      </div>
+      <div style="width:100%;max-width:680px;margin-top:8px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;font-size:.72rem">
+        <span style="display:flex;align-items:center;gap:6px;color:var(--dim)"><span style="width:10px;height:10px;border-radius:50%;background:#e63946;display:inline-block"></span><strong style="color:#e63946">Tier 1 — Foundational:</strong> Master first; cascades into other chapters</span>
+        <span style="display:flex;align-items:center;gap:6px;color:var(--dim)"><span style="width:10px;height:10px;border-radius:50%;background:#c9a227;display:inline-block"></span><strong style="color:#c9a227">Tier 2 — High Yield:</strong> Heavily tested; fairly self-contained</span>
+        <span style="display:flex;align-items:center;gap:6px;color:var(--dim)"><span style="width:10px;height:10px;border-radius:50%;background:#5a5a7a;display:inline-block"></span><strong style="color:#9090b0">Tier 3 — Detail:</strong> Read once; low standalone exam weight</span>
+      </div>
       <div class="exam-weight-section">
         <div class="ew-title">ASBOG Exam Topic Weights</div>
         <div class="ew-sub">Focus your study time based on exam percentage distribution</div>
@@ -5407,6 +5472,125 @@ const CHAPTERS=[
 {n:13,t:'Engineered Structures',c:'#3a5a40',s:['Key Terms','Introduction','Tunnels','Siting and Investigation','Parts of a Tunnel','Excavation Methods','Tunnel Liners','Dams','Siting and Investigation (Dams)','Parts of a Dam','Types of Dams','Causes of Dam Failures','Flow Nets','Grouting','Grout Mix','Uses of Grout','Grouting Techniques','Grouting in Dam Design','Cement Aggregate']}
 ];
 
+
+// ── TIER DATA ──────────────────────────────────────────────────────
+// 1=Foundational, 2=High Yield, 3=Supporting Detail
+const TIER_DATA = {"2": {"Key Terms": 1, "Introduction": 2, "Trigonometry": 1, "Strike, Dip, and Apparent Dip": 1, "Fold Line": 2, "Strike and Dip Determination": 1, "Exaggerated Dip": 2, "Outcrop Patterns": 1, "Thickness: Mathematical Methods": 1, "Depth: Mathematical Methods": 1, "Apparent Dip / True Dip": 1, "Stereonet Methods": 2, "Folds": 1, "Faults": 1}, "3": {"Key Terms": 1, "Age Relationships": 1, "Top of Beds": 2, "Unconformities": 1, "Correlation of Units": 2, "Rule of V's": 1, "Folds": 1, "Faults": 1, "Lithologic Units": 2, "Drainage Patterns": 2, "Map Scales & Scale Conversion": 1, "Township and Range": 2, "Mapping Datums": 3, "Map Projections": 3, "Topographic Map Symbols": 2, "Geologic Map Symbols": 1, "Geologic History": 1, "Combination Problems": 1}, "4": {"Introduction": 2, "Karst Features": 1, "Other Karst Features": 2, "Glacial & Glacial-Fluviatile Processes": 2, "Alpine (Ice Stream)": 3, "Continentals (Ice Caps)": 3, "Fluvial Depositional and Erosional Features": 1, "Stream Channel Development": 2, "Sediment Transport and Channel Morphology": 2, "Stream Patterns": 2, "Type of Flow": 2, "Coastal (Littoral) Processes": 2, "Coastal Processes and Engineered Structures": 3, "Fault Geomorphology": 2, "Geomorphic Evidence of Faults": 2, "Landslide Geomorphology": 2, "Characteristic Features": 3, "Classification of Landslides": 1, "Eolian Geomorphology": 3, "Weathering": 1, "Rock Weathering": 2, "Soil Development": 2}, "5": {"Introduction": 2, "Mineral Classification": 1, "Classification of Igneous Rocks": 1, "Bowen's Reaction Series": 1, "Sedimentary Rocks": 1, "Types of Clastic Rocks": 1, "Chemical or Evaporative Rocks": 2, "Biochemical Rocks": 2, "Facies and Depositional Environments": 1, "Diagenesis": 2, "Metamorphic Rocks": 1, "Classification of Metamorphic Rocks": 1, "Regional Metamorphic Facies": 2, "Contact Metamorphic Facies": 2, "Asbestos": 3, "Paleontology": 2, "Index Fossils and Fossil Assemblages": 2, "Correlation and Age Dating": 1, "Geologic History": 1, "Plate Tectonics": 1, "North American Orogenies": 3, "Stratigraphic Columns": 2}, "6": {"Key Terms": 2, "Introduction": 2, "Ore Deposits": 1, "Genetic Classification": 2, "Magmatic Segregation Deposits": 2, "Deposits Related to Solution-Remobilization": 3, "Epigenetic Deposits": 3, "Subaerial Volcanic Deposits": 3, "Volcanogenic Deposits": 3, "Regional Metamorphic Deposits": 3, "Sedimentary Ores": 2, "Weathering Deposits": 2, "Plate Tectonic Classification of Ore Deposits": 2, "Geophysical & Geochemical Exploration": 2, "Mineral Resource and Reserve Classification": 1, "Calculating Resources and Reserves": 1, "Rare Earth Elements (REE)": 3, "Coal: Introduction & Formation": 1, "Coal Rank & Quality": 1, "Coal Resources and CBM": 2, "Mining Methods": 2, "Ore Processing": 3, "Mine Reclamation and Remediation": 2, "Petroleum Geology": 1, "Mode of Occurrence & Pool Formation": 1, "Reservoir Rocks": 1, "Traps": 1, "Petroleum Resources & Distribution": 2, "Natural Gas": 2}, "7": {"Key Terms": 1, "Introduction": 2, "Hydrologic Cycle": 1, "Hydrologic Budgets and Inventories": 1, "Vadose Zone": 2, "Aquifers": 1, "Head": 1, "Porosity": 1, "Effective Porosity": 1, "Specific Yield": 1, "Storativity": 1, "Hydraulic Conductivity": 1, "Transmissivity": 1, "Hydraulic Gradient": 1, "Darcy's Law": 1, "Groundwater Velocity": 1, "Type and Direction of Flow": 1, "Flow Nets": 1, "Sustainable Yield": 2, "Groundwater Tracers": 3, "Dating Groundwater": 3, "Salt Water Intrusion": 2}, "8": {"Key Terms": 2, "Introduction": 2, "Remote Sensing": 2, "Electromagnetic Spectrum": 3, "Remote Sensing Types": 2, "Determination of Scale": 2, "Geophysical Methods": 2, "Introduction to Borehole Geophysics": 2, "Electric Logging": 2, "Nuclear Logging": 3, "Caliper Logging": 3, "Seismic Refraction Surveying": 2, "Ground Penetrating Radar": 2, "Surficial Electrical Resistivity Surveys": 2, "Magnetic Surveys": 3, "Gravity Surveys": 3, "Test Pits": 2, "Borings": 1, "Drilling Process": 2, "Drilling Methods": 2, "Drilling Fluids": 2, "Soil Sampling": 1, "Standard Penetration Test": 1, "Boring Logs": 1, "Rock Core Drilling": 1, "Rock Boring Logs": 2, "Other Field Tests": 3, "Cone Penetrometers": 2, "Vane Shear Tests": 2, "Well Installation": 1, "Aquifer Tests": 1, "Theis Method": 1, "Time-Drawdown Method": 1, "Distance-Drawdown Method": 1, "Well Efficiency": 2, "Monitoring Wells": 1, "Groundwater Sampling": 2}, "9": {"Key Terms": 1, "Water Quality Standards": 1, "Quality Assurance and Quality Control": 2, "Significant Figures": 2, "Domestic Water Quality": 1, "Agricultural Water Quality": 2, "Industrial Water Quality": 2, "Total Dissolved Solids (TDS)": 2, "Hardness": 2, "Representation of Water Quality Results": 2, "Groundwater Contamination": 1, "Sources of Contaminants": 1, "Contaminants": 1, "Inorganic Contaminants": 2, "Biological Contaminants": 2, "Disinfection Byproducts": 3, "Organic Contaminants": 1, "Pesticides": 3, "Brownfields": 2, "Onsite Wastewater Management": 2, "Remediation": 1}, "10": {"Key Terms": 1, "Introduction": 2, "Laws and Regulations Overview": 1, "Water Quality Standards & Regulations": 1, "OSHA Regulations for Construction: Excavations": 1, "Safeguarding Personnel on Hazardous Sites": 1, "Introduction to Guidelines": 2, "CGS Guidelines": 2, "TEGD Guidelines": 3}, "11": {"Key Terms": 1, "Soil Mechanics": 1, "Phase Relationships": 1, "Density Testing, Compaction, and Fill Calculations": 1, "Unified Soil Classification System": 1, "Laboratory Tests": 2, "Atterberg Limits": 1, "Sieve Analysis": 1, "Stress": 1, "Effective Stress": 1, "Mohr Circle": 1, "Elastic Properties": 2, "Shear Strength of Soils": 1, "Mohr-Coulomb Failure Envelope": 1, "Shear Strength of Cohesionless Soil": 2, "Shear Strength of Cohesive Soil": 2, "Shear Strength of Mixed Soil": 2}, "12": {"Key Terms": 1, "Earthquakes": 1, "Cause of Shallow Earthquakes": 2, "Types of Seismic Waves": 1, "Propagation of Seismic Waves": 2, "Measurement of Wave Properties": 2, "Nature of Earthquake Motion": 2, "Earthquake Size": 1, "Magnitude and Energy": 1, "Intensity": 2, "Locating an Earthquake": 2, "Earthquake Focal Mechanisms": 3, "Earthquake Early Warning": 3, "San Andreas Fault Zone": 2, "California Earthquake Forecasts": 3, "New Madrid Seismic Zone Earthquake Forecasts": 3, "Seismic Gap Theory": 3, "Dating Earthquake Movements": 3, "Seismic Hazards": 1, "Damage to Buildings and Ground-Structure Interactions": 2, "Development of a Design Earthquake": 2, "Seismic Risk": 2, "Slope Movements": 1, "Causes of Landslides": 1, "Elements of a Landslide Investigation": 2, "Landslide Stability Analysis Methods": 1, "Rockfall Hazard": 2, "Landslide Mitigation Measures": 2, "Slope Steepness": 2, "Flooding Hazards": 2, "Volcanic Hazards": 2, "Subsidence": 2, "Expansive Soils": 2, "Radon": 3, "Toxic Gas": 3}, "13": {"Key Terms": 2, "Introduction": 2, "Tunnels": 2, "Siting and Investigation": 2, "Parts of a Tunnel": 3, "Excavation Methods": 2, "Tunnel Liners": 3, "Dams": 1, "Siting and Investigation (Dams)": 2, "Parts of a Dam": 2, "Types of Dams": 1, "Causes of Dam Failures": 1, "Flow Nets": 1, "Grouting": 2, "Grout Mix": 3, "Uses of Grout": 2, "Grouting Techniques": 3, "Grouting in Dam Design": 2, "Cement Aggregate": 3}};
+const TIER_LABELS = {1:'Foundational',2:'High Yield',3:'Supporting Detail'};
+const TIER_COLORS = {1:'#e63946',2:'#c9a227',3:'#5a5a7a'};
+const TIER_BG    = {1:'rgba(230,57,70,.12)',2:'rgba(201,162,39,.1)',3:'rgba(90,90,122,.1)'};
+const TIER_BORDER= {1:'rgba(230,57,70,.35)',2:'rgba(201,162,39,.3)',3:'rgba(90,90,122,.25)'};
+function getTier(chN,secName){return (TIER_DATA[chN]&&TIER_DATA[chN][secName])||2;}
+
+// ── PROGRESS STATE ──────────────────────────────────────────
+function loadP(){try{return JSON.parse(localStorage.getItem('asbog_p_v2'))||{};}catch{return {};}}
+function saveP(){
+  localStorage.setItem('asbog_p_v2',JSON.stringify(P));
+  document.getElementById('saveLblHd').textContent='Saved ✓';
+  document.getElementById('saveDotHd').style.background='#5de8b5';
+  clearTimeout(window._savT);
+  window._savT=setTimeout(()=>{document.getElementById('saveLblHd').textContent='Saved';document.getElementById('saveDotHd').style.background='var(--acc)';},1800);
+}
+let P=loadP();
+if(!P.done)P.done={};
+if(!P.flags)P.flags={};
+if(!P.last)P.last=null;
+if(!P.chCol)P.chCol={};
+
+const pk=(ch,sec)=>ch+'::'+sec;
+const isDone=(ch,sec)=>!!P.done[pk(ch,sec)];
+const isFlagged=(ch,sec)=>!!P.flags[pk(ch,sec)];
+function markDone(ch,sec,v){if(v)P.done[pk(ch,sec)]=1;else delete P.done[pk(ch,sec)];saveP();refreshProgress();}
+function toggleFlag(ch,sec){if(P.flags[pk(ch,sec)])delete P.flags[pk(ch,sec)];else P.flags[pk(ch,sec)]=1;saveP();refreshSB();renderFlagged();}
+
+function chapterProgress(ch){
+  const secs=ch.s;let done=0;
+  secs.forEach(s=>{if(isDone(ch.n,s))done++;});
+  return{done,total:secs.length,pct:Math.round(done/secs.length*100)};
+}
+function overallProgress(){
+  let total=0,done=0;
+  CHAPTERS.forEach(ch=>{const p=chapterProgress(ch);total+=p.total;done+=p.done;});
+  return{total,done,pct:total?Math.round(done/total*100):0};
+}
+function refreshProgress(){
+  const op=overallProgress();
+  const fill=document.getElementById('opBarFill');
+  if(fill)fill.style.width=op.pct+'%';
+  const od=document.getElementById('opDone');
+  if(od)od.textContent=op.done+' of '+op.total+' sections read';
+  const op2=document.getElementById('opPct');
+  if(op2)op2.textContent=op.pct+'%';
+  const cs=document.getElementById('chStats');
+  if(cs){
+    cs.innerHTML=CHAPTERS.map(ch=>{
+      const p=chapterProgress(ch);
+      return p.done>0?`<span class="ch-stat">Ch.${ch.n}: <strong style="color:${ch.c}">${p.done}/${p.total}</strong></span>`:'';
+    }).join('');
+  }
+  refreshSB();
+  renderFlagged();
+}
+function renderFlagged(){
+  const el=document.getElementById('flaggedPanel');
+  if(!el)return;
+  const flags=Object.keys(P.flags);
+  if(!flags.length){el.style.display='none';return;}
+  el.style.display='block';
+  let h='';
+  flags.forEach(key=>{
+    const[ch,sec]=key.split('::');
+    const chObj=CHAPTERS.find(c=>c.n==ch);
+    if(chObj)h+=`<div class="flagged-item" onclick="goToSection(${chObj.n},'${sec.replace(/'/g,"\'")}')" title="Go to section">🚩 Ch.${ch}: ${sec}</div>`;
+  });
+  el.querySelector('.flagged-items').innerHTML=h||'';
+}
+function goToSection(chNum,secName){
+  const idx=CHAPTERS.findIndex(c=>c.n===chNum);
+  if(idx<0)return;
+  selCh(idx);
+  const sIdx=CHAPTERS[idx].s.indexOf(secName);
+  if(sIdx>=0)setTimeout(()=>selSec(sIdx),50);
+}
+function resumeStudy(){
+  if(!P.last)return;
+  const{ch,sec}=P.last;
+  const idx=CHAPTERS.findIndex(c=>c.n===ch);
+  if(idx<0)return;
+  selCh(idx);
+  const sIdx=CHAPTERS[idx].s.indexOf(sec);
+  if(sIdx>=0)setTimeout(()=>selSec(sIdx),50);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown',e=>{
+  if(document.activeElement&&['INPUT','TEXTAREA'].includes(document.activeElement.tagName))return;
+  if(e.key==='ArrowRight'&&cCh!==null){
+    const ch=CHAPTERS[cCh];
+    if(cSec<ch.s.length-1)selSec(cSec+1);
+    else if(cCh<CHAPTERS.length-1){selCh(cCh+1);}
+    e.preventDefault();
+  }
+  if(e.key==='ArrowLeft'&&cCh!==null){
+    if(cSec>0)selSec(cSec-1);
+    else if(cCh>0){const prevCh=CHAPTERS[cCh-1];selCh(cCh-1);setTimeout(()=>selSec(prevCh.s.length-1),50);}
+    e.preventDefault();
+  }
+  if(e.key==='ArrowDown'&&cCh!==null){if(cCh<CHAPTERS.length-1)selCh(cCh+1);e.preventDefault();}
+  if(e.key==='ArrowUp'&&cCh!==null){if(cCh>0)selCh(cCh-1);e.preventDefault();}
+});
+
+// Sidebar toggle
+let SB_OPEN=true;
+function toggleSB(){
+  SB_OPEN=!SB_OPEN;
+  const sb=document.getElementById('sb'),btn=document.getElementById('sbToggleBtn');
+  sb.classList.toggle('sb-collapsed',!SB_OPEN);
+  btn.textContent=SB_OPEN?'‹':'›';
+  btn.classList.toggle('closed',!SB_OPEN);
+  btn.style.left=SB_OPEN?'240px':'0';
+}
+
 let cCh=null,cSec=null;
 
 function goHome(){
@@ -5414,16 +5598,105 @@ function goHome(){
   document.getElementById('chv').style.display='none';
   document.querySelectorAll('.ct').forEach(t=>t.classList.remove('active'));
   cCh=null;cSec=null;
+  refreshProgress();
+  // Resume button
+  const rb=document.getElementById('resumeBtn');
+  if(rb&&P.last){
+    const{ch,sec}=P.last;
+    rb.style.display='inline-block';
+    rb.textContent='↩ Resume: Ch.'+ch+' — '+sec;
+  }
 }
 
 function buildSB(){
   const sb=document.getElementById('sb');
+  sb.innerHTML=`<div class="sec-search-wrap"><input class="sec-search" id="secSearch" placeholder="Search sections…" oninput="filterSB(this.value)"></div>
+  <div class="sb-filter-row" id="tierFilterRow">
+    <button class="tier-filter-btn active-filter" id="tf-all" onclick="setTierFilter(0)" style="color:#0d0d12;background:#eaeaf5;border-color:#eaeaf5">All</button>
+    <button class="tier-filter-btn" id="tf-1" onclick="setTierFilter(1)" style="color:${TIER_COLORS[1]};border-color:${TIER_COLORS[1]}">T1 Core</button>
+    <button class="tier-filter-btn" id="tf-2" onclick="setTierFilter(2)" style="color:${TIER_COLORS[2]};border-color:${TIER_COLORS[2]}">T2 Yield</button>
+    <button class="tier-filter-btn" id="tf-3" onclick="setTierFilter(3)" style="color:${TIER_COLORS[3]};border-color:${TIER_COLORS[3]}">T3 Detail</button>
+  </div>
+  <div class="tier-legend">
+    <span class="tier-legend-item"><span class="tier-dot" style="background:${TIER_COLORS[1]}"></span>Foundational</span>
+    <span class="tier-legend-item"><span class="tier-dot" style="background:${TIER_COLORS[2]}"></span>High Yield</span>
+    <span class="tier-legend-item"><span class="tier-dot" style="background:${TIER_COLORS[3]}"></span>Detail</span>
+  </div>`;
   CHAPTERS.forEach((ch,i)=>{
-    const t=document.createElement('div');t.className='ct';t.style.setProperty('--cc',ch.c);
-    t.innerHTML=`<div class="cn" style="background:${ch.c}1e;color:${ch.c}">${ch.n}</div><div class="cl">Ch.${ch.n}: ${ch.t}</div>`;
-    t.addEventListener('click',()=>selCh(i));sb.appendChild(t);
+    const prog=chapterProgress(ch);
+    const collapsed=P.chCol&&P.chCol[i];
+    // Chapter header row
+    const hdr=document.createElement('div');hdr.className='sb-sec-hdr';
+    hdr.innerHTML=`<div style="display:flex;align-items:center;gap:6px;flex:1;cursor:pointer" onclick="selCh(${i})">
+      <div class="cn" style="background:${ch.c}1e;color:${ch.c};width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:IBM Plex Mono,monospace;font-size:.58rem;font-weight:700;flex-shrink:0">${ch.n}</div>
+      <span style="font-size:.68rem;font-weight:600;color:var(--dim);text-transform:none;letter-spacing:0">${ch.t}</span>
+    </div>
+    <button onclick="event.stopPropagation();toggleChGroup(${i})" title="Collapse/expand">${collapsed?'▸':'▾'}</button>`;
+    sb.appendChild(hdr);
+    // Progress bar under chapter header
+    const pb=document.createElement('div');pb.style.cssText='padding:0 11px 5px';
+    pb.innerHTML=`<div class="ct-prog"><div class="ct-prog-fill" style="width:${prog.pct}%;background:${ch.c}"></div></div>`;
+    sb.appendChild(pb);
+    // Section group
+    const grp=document.createElement('div');grp.className='sb-ch-group';grp.id=`chg-${i}`;
+    grp.style.maxHeight=collapsed?'0':'2000px';
+    ch.s.forEach((s,j)=>{
+      const done=isDone(ch.n,s),flagged=isFlagged(ch.n,s);
+      const item=document.createElement('div');
+      item.className='ct'+(cCh===i&&cSec===j?' active':'')+' ch-sec-item';
+      item.id=`sec-${i}-${j}`;
+      item.dataset.ch=ch.n;item.dataset.sec=s;
+      item.style.setProperty('--cc',ch.c);
+      const t=getTier(ch.n,s);
+      const tc=TIER_COLORS[t];
+      item.innerHTML=`<div style="display:flex;align-items:center;gap:5px;flex:1;min-width:0">
+        ${done?`<div class="sec-done-dot" style="background:${ch.c}"></div>`:'<div style="width:7px;flex-shrink:0"></div>'}
+        <div class="cl" style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s}</div>
+        <div class="tier-dot" style="background:${tc};opacity:.75;flex-shrink:0"></div>
+      </div>
+      <button class="sec-flag-btn${flagged?' flagged':''}" onclick="event.stopPropagation();toggleFlag(${ch.n},'${s.replace(/'/g,"\'")}')" title="${flagged?'Unflag':'Flag for review'}">${flagged?'🚩':'⚑'}</button>`;
+      item.addEventListener('click',()=>{selCh(i);setTimeout(()=>selSec(j),30);});
+      grp.appendChild(item);
+    });
+    sb.appendChild(grp);
+    // Divider between chapters
+    const div=document.createElement('div');div.style.cssText='height:1px;background:var(--border);margin:4px 0';
+    sb.appendChild(div);
   });
 }
+function toggleChGroup(i){
+  if(!P.chCol)P.chCol={};
+  P.chCol[i]=!P.chCol[i];saveP();
+  const grp=document.getElementById('chg-'+i);
+  if(grp)grp.style.maxHeight=P.chCol[i]?'0':'2000px';
+  // flip arrow
+  buildSB();
+}
+let _tierFilter=0;
+function setTierFilter(t){
+  _tierFilter=t;
+  document.querySelectorAll('.tier-filter-btn').forEach(b=>b.classList.remove('active-filter'));
+  document.querySelectorAll('.tier-filter-btn').forEach(b=>{b.style.color=b.id==='tf-all'?'':'';});
+  const btn=document.getElementById(t===0?'tf-all':'tf-'+t);
+  if(btn){
+    btn.classList.add('active-filter');
+    const bg=t===0?'#eaeaf5':TIER_COLORS[t];
+    btn.style.background=bg;btn.style.color='#0d0d12';btn.style.borderColor=bg;
+  }
+  filterSB(document.getElementById('secSearch')?document.getElementById('secSearch').value:'');
+}
+function filterSB(val){
+  const v=(val||'').toLowerCase();
+  document.querySelectorAll('.ch-sec-item').forEach(el=>{
+    const txt=el.querySelector('.cl').textContent.toLowerCase();
+    const chN=parseInt(el.dataset.ch||0);const secN=el.dataset.sec||'';
+    const tier=getTier(chN,secN);
+    const matchText=!v||txt.includes(v);
+    const matchTier=_tierFilter===0||tier===_tierFilter;
+    el.style.display=(matchText&&matchTier)?'flex':'none';
+  });
+}
+function refreshSB(){buildSB();}
 
 function buildGrid(){
   const g=document.getElementById('cgrid');
@@ -5436,27 +5709,62 @@ function buildGrid(){
 
 function selCh(idx){
   cCh=idx;cSec=0;const ch=CHAPTERS[idx];
-  document.querySelectorAll('.ct').forEach((t,i)=>t.classList.toggle('active',i===idx));
   document.getElementById('wsc').style.display='none';
   const cv=document.getElementById('chv');cv.style.display='flex';
   const setCC=el=>el.style.setProperty('--cc',ch.c);
   [cv,document.getElementById('sstrip'),document.getElementById('ca'),document.getElementById('chh')].forEach(setCC);
-  document.getElementById('chh').innerHTML=`<div class="ce" style="color:${ch.c}">Chapter ${ch.n}</div><h2>${ch.t}</h2>`;
+  const prog=chapterProgress(ch);
+  const t1c=ch.s.filter(s=>getTier(ch.n,s)===1).length;
+  const t2c=ch.s.filter(s=>getTier(ch.n,s)===2).length;
+  const t3c=ch.s.filter(s=>getTier(ch.n,s)===3).length;
+  document.getElementById('chh').innerHTML=`<div class="ce" style="color:${ch.c}">Chapter ${ch.n}</div>
+    <h2>${ch.t}</h2>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap">
+      <div style="flex:1;max-width:200px;height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+        <div style="height:100%;border-radius:2px;background:${ch.c};width:${prog.pct}%;transition:width .4s ease"></div>
+      </div>
+      <span style="font-size:.65rem;color:var(--dim);font-family:IBM Plex Mono,monospace">${prog.done}/${prog.total} · ${prog.pct}%</span>
+      <span style="font-size:.65rem;display:flex;gap:8px">
+        <span style="color:${TIER_COLORS[1]}">▪ ${t1c} core</span>
+        <span style="color:${TIER_COLORS[2]}">▪ ${t2c} yield</span>
+        <span style="color:${TIER_COLORS[3]}">▪ ${t3c} detail</span>
+      </span>
+      <span style="font-size:.6rem;color:var(--dim)">← → sections · ↑ ↓ chapters</span>
+    </div>`;
   const strip=document.getElementById('sstrip');strip.innerHTML='';
   ch.s.forEach((s,i)=>{
-    const p=document.createElement('div');p.className='sp'+(i===0?' active':'');p.textContent=s;
+    const done=isDone(ch.n,s),flagged=isFlagged(ch.n,s);
+    const tier=getTier(ch.n,s);
+    const p=document.createElement('div');
+    p.className='sp'+(i===0?' active':'')+(done?' done':'')+(flagged?' flagged':'');
+    p.style.borderLeft=`3px solid ${TIER_COLORS[tier]}`;
+    p.innerHTML=`<span class="sp-label">${s}</span><span class="sp-done"></span>`;
+    p.title=TIER_LABELS[tier];
     p.addEventListener('click',()=>selSec(i));strip.appendChild(p);
   });
+  buildSB();
   selSec(0);
 }
 
 function selSec(idx){
   cSec=idx;const ch=CHAPTERS[cCh];const sname=ch.s[idx];
   document.querySelectorAll('.sp').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  // Scroll active pill into view
+  const activePill=document.querySelector('.sp.active');
+  if(activePill)activePill.scrollIntoView({inline:'center',behavior:'smooth'});
+  // Scroll sidebar item into view
+  const sideItem=document.getElementById(`sec-${cCh}-${idx}`);
+  if(sideItem)sideItem.scrollIntoView({block:'nearest',behavior:'smooth'});
   const key=ch.n+'::'+sname;const d=C[key];
   const ca=document.getElementById('ca');
+  // Save last visited
+  P.last={ch:ch.n,sec:sname};saveP();
   if(!d){renderEmpty(sname,ch);return;}
   renderContent(d,sname,ch.c);ca.scrollTop=0;
+  // Update sidebar active state
+  document.querySelectorAll('.ch-sec-item').forEach(el=>el.classList.remove('active'));
+  const si=document.getElementById(`sec-${cCh}-${idx}`);
+  if(si)si.classList.add('active');
 }
 
 function renderEmpty(name,ch){
@@ -5492,7 +5800,34 @@ function getRef(n){
 
 function renderContent(d,name,color){
   const ca=document.getElementById('ca');
+  const ch=CHAPTERS[cCh];
+  const chN=ch.n;
+  const secDone=isDone(chN,name);
+  const secFlagged=isFlagged(chN,name);
   let h=`<div class="sc" style="--cc:${color}">`;
+  // Tier badge + Progress action bar
+  const tier=getTier(chN,name);
+  const tColor=TIER_COLORS[tier],tBg=TIER_BG[tier],tBorder=TIER_BORDER[tier];
+  const tLabel=TIER_LABELS[tier];
+  const tDesc=tier===1?'Master this — it underpins many other sections and frequently appears in ASBOG calculations.':
+               tier===2?'High exam yield — understand this well, but it is fairly self-contained.':
+               'Supporting detail — read once for familiarity; unlikely to be a standalone exam calculation.';
+  h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;background:${tBg};border:1px solid ${tBorder};border-radius:6px;padding:8px 12px">
+    <div class="tier-dot" style="background:${tColor};width:9px;height:9px"></div>
+    <span style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:${tColor}">Tier ${tier} — ${tLabel}</span>
+    <span style="font-size:.7rem;color:var(--dim);flex:1">${tDesc}</span>
+  </div>`;
+  h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <button onclick="markDone(${chN},'${name.replace(/'/g,"\'")}',${!secDone});selSec(${cSec})"
+      style="display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:5px;font-size:.68rem;font-weight:600;cursor:pointer;font-family:IBM Plex Sans,sans-serif;border:1px solid;transition:all .15s;${secDone?'background:rgba(45,158,117,.15);border-color:rgba(45,158,117,.4);color:#5de8b5':'background:rgba(124,106,247,.08);border-color:rgba(124,106,247,.25);color:#b0a0ff'}">
+      ${secDone?'✓ Marked as read':'○ Mark as read'}
+    </button>
+    <button onclick="toggleFlag(${chN},'${name.replace(/'/g,"\'")}');selSec(${cSec})"
+      style="padding:5px 10px;border-radius:5px;font-size:.68rem;cursor:pointer;font-family:IBM Plex Sans,sans-serif;border:1px solid;transition:all .15s;${secFlagged?'background:rgba(230,57,70,.12);border-color:rgba(230,57,70,.3);color:#f08090':'background:transparent;border-color:var(--border);color:var(--dim)'}">
+      ${secFlagged?'🚩 Flagged':'⚑ Flag for review'}
+    </button>
+    <span style="font-size:.65rem;color:var(--dim);margin-left:auto">Section ${cSec+1} of ${ch.s.length}</span>
+  </div>`;
   if(d.src)h+=`<div class="src">📚 ${d.src}</div>`;
   h+=`<div class="cs"><h3>${name}</h3>`;
   if(d.sum)h+=`<p>${d.sum}</p>`;
@@ -5553,6 +5888,20 @@ function renderContent(d,name,color){
       }, 100);
     }
   }
+  h+=`</div>`;
+  // Bottom navigation
+  const ch2=CHAPTERS[cCh];
+  const hasPrev=cSec>0||(cCh>0);
+  const hasNext=cSec<ch2.s.length-1||(cCh<CHAPTERS.length-1);
+  const secDone2=isDone(ch2.n,name);
+  h+=`<div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--border);padding-top:14px">
+    ${hasPrev?`<button onclick="if(cSec>0)selSec(cSec-1);else{selCh(cCh-1);setTimeout(()=>selSec(CHAPTERS[cCh].s.length-1),50);}" style="padding:6px 14px;border-radius:5px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:IBM Plex Sans,sans-serif;border:1px solid var(--border);background:transparent;color:var(--dim);transition:all .15s">← Previous</button>`:''}
+    <button onclick="markDone(${ch2.n},'${name.replace(/'/g,"\'")}',${!secDone2});selSec(${cSec})"
+      style="padding:6px 14px;border-radius:5px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:IBM Plex Sans,sans-serif;border:1px solid;transition:all .15s;${secDone2?'background:rgba(45,158,117,.15);border-color:rgba(45,158,117,.4);color:#5de8b5':'background:rgba(45,158,117,.08);border-color:rgba(45,158,117,.25);color:#5de8b5'}">
+      ${secDone2?'✓ Read':'Mark as read'}
+    </button>
+    ${hasNext?`<button onclick="if(cSec<CHAPTERS[cCh].s.length-1)selSec(cSec+1);else selCh(cCh+1);" style="padding:6px 14px;border-radius:5px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:IBM Plex Sans,sans-serif;border:1px solid rgba(95,184,211,.3);background:rgba(95,184,211,.08);color:#5fb8d3;transition:all .15s;margin-left:auto">Next →</button>`:''}
+  </div>`;
   h+=`</div>`;ca.innerHTML=h;
 }
 
@@ -5602,6 +5951,23 @@ function buildWeightChart(){
   }));
 }
 buildSB();buildGrid();buildWeightChart();
+// Init welcome screen
+refreshProgress();
+// Resume button
+const rb=document.getElementById('resumeBtn');
+if(rb&&P.last){
+  const{ch,sec}=P.last;
+  rb.style.display='inline-block';
+  rb.textContent='↩ Resume: Ch.'+ch+' — '+sec;
+}
+// Flagged panel (injected into welcome if flags exist)
+const ws=document.getElementById('wsc');
+const fp=document.createElement('div');
+fp.className='flagged-panel';fp.id='flaggedPanel';fp.style.cssText='width:100%;max-width:680px;margin-top:10px;display:none';
+fp.innerHTML='<div class="flagged-title">🚩 Flagged for review</div><div class="flagged-items"></div>';
+const cgrid=document.getElementById('cgrid');
+if(cgrid)ws.insertBefore(fp,cgrid);
+renderFlagged();
 
 </script>
 <footer style="text-align:center;padding:14px 20px;border-top:1px solid #252533;font-family:'IBM Plex Sans',sans-serif;font-size:.65rem;color:#7a7a9a;letter-spacing:.06em;flex-shrink:0">
